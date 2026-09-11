@@ -217,9 +217,6 @@ static Token operator(Lexer *this)
     {
         advance(this);
 
-        if(match(this, ';'))
-            return createToken(this, TOKEN_DSEMI, start);
-
         return createToken(this, TOKEN_SEMICOLON, start);
     }
 
@@ -230,9 +227,6 @@ static Token operator(Lexer *this)
         if(match(this, '<'))
             return createToken(this, TOKEN_HEREDOC, start);
 
-        if(match(this, '&'))
-            return createToken(this, TOKEN_DUP_IN, start);
-
         return createToken(this, TOKEN_REDIRECT_IN, start);
     }
 
@@ -242,9 +236,6 @@ static Token operator(Lexer *this)
 
         if(match(this, '>'))
             return createToken(this, TOKEN_APPEND, start);
-
-        if(match(this, '&'))
-            return createToken(this, TOKEN_DUP_OUT, start);
 
         return createToken(this, TOKEN_REDIRECT_OUT, start);
     }
@@ -332,15 +323,12 @@ const char *TokenType_toStr(TokenType type)
         case TOKEN_AMPERSAND:       return "AMPERSAND";
         case TOKEN_AND:             return "AND";
         case TOKEN_SEMICOLON:       return "SEMICOLON";
-        case TOKEN_DSEMI:           return "DSEMI";
         case TOKEN_NEWLINE:         return "NEWLINE";
 
         case TOKEN_REDIRECT_IN:     return "REDIRECT IN";
         case TOKEN_REDIRECT_OUT:    return "REDIRECT OUT";
         case TOKEN_APPEND:          return "APPEND";
         case TOKEN_HEREDOC:         return "HEREDOC";
-        case TOKEN_DUP_IN:          return "DUP IN";
-        case TOKEN_DUP_OUT:         return "DUP OUT";
 
         case TOKEN_LPAREN:          return "LPAREN";
         case TOKEN_RPAREN:          return "RPAREN";

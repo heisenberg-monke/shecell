@@ -1,3 +1,4 @@
+#include "parser.h"
 #include "shecell.h"
 
 #include <stddef.h>
@@ -40,8 +41,10 @@ void run()
 
         Lexer lexer = {0};
         Tokens *tokens = &lexer.tokens;
+        Parser parser = {tokens, 0};
 
         Lexer_tokenize(&lexer, input);
+        Ast *root = Parser_parse(&parser);
 
         if(!strcmp(input, "exit"))
             isRunning = false;
@@ -58,6 +61,9 @@ void run()
                 Token *token = &tokens->data[i];
                 LOG_OUT("Value: " SV_FMT " | type: %s\n", SV_ARG(&token->value), TokenType_toStr(token->type));
             }
+
+            LOG_OUT("\n");
+            Ast_print(root, 0);
         }
         
         LOG_OUT("\n");
