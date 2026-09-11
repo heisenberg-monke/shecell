@@ -228,12 +228,7 @@ static Token operator(Lexer *this)
         advance(this);
 
         if(match(this, '<'))
-        {
-            if(match(this, '<'))
-                return createToken(this, TOKEN_HERESTRING, start);
-
             return createToken(this, TOKEN_HEREDOC, start);
-        }
 
         if(match(this, '&'))
             return createToken(this, TOKEN_DUP_IN, start);
@@ -247,9 +242,6 @@ static Token operator(Lexer *this)
 
         if(match(this, '>'))
             return createToken(this, TOKEN_APPEND, start);
-
-        if(match(this, '|'))
-            return createToken(this, TOKEN_CLOBBER, start);
 
         if(match(this, '&'))
             return createToken(this, TOKEN_DUP_OUT, start);
@@ -347,8 +339,6 @@ const char *TokenType_toStr(TokenType type)
         case TOKEN_REDIRECT_OUT:    return "REDIRECT OUT";
         case TOKEN_APPEND:          return "APPEND";
         case TOKEN_HEREDOC:         return "HEREDOC";
-        case TOKEN_HERESTRING:      return "HERE STRING";
-        case TOKEN_CLOBBER:         return "CLOBBER";
         case TOKEN_DUP_IN:          return "DUP IN";
         case TOKEN_DUP_OUT:         return "DUP OUT";
 

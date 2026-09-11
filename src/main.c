@@ -1,5 +1,6 @@
 #include "shecell.h"
 
+#include <stddef.h>
 #include <string.h>
 
 #include <readline/readline.h>
@@ -22,7 +23,9 @@ void showHelp() {
 
 void run()
 {
-    while(true)
+    bool isRunning = true;
+
+    while(isRunning)
     {
         char *input = readline("> ");
 
@@ -41,12 +44,9 @@ void run()
         Lexer_tokenize(&lexer, input);
 
         if(!strcmp(input, "exit"))
-        {
-            free(input);
-            break;
-        }
+            isRunning = false;
 
-        if(!strcmp(input, "history"))
+        else if(!strcmp(input, "history"))
             showHistory();
 
         else if(!strcmp(input, "help"))
