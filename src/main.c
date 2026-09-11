@@ -16,7 +16,7 @@ void show_history()
         return;
 
     for(size_t i = 0; history[i]; ++i)
-        printf("%zu  %s\n", i+1, history[i]->line);
+        LOG_OUT("%zu  %s\n", i+1, history[i]->line);
 }
 
 void run()
@@ -43,7 +43,20 @@ void run()
         if(!strcmp(input, "history"))
             show_history();
 
-        printf("You entered: %s\n", input);
+        Lexer lexer = {0};
+
+        Lexer_tokenize(&lexer, input);
+
+        Tokens *tokens = &lexer.tokens;
+        for(size_t i = 0; i < tokens->size; ++i)
+        {
+            Token *token = &tokens->data[i];
+            LOG_OUT("Value: " SV_FMT " | type: %s\n", SV_ARG(&token->value), TokenType_toStr(token->type));
+        }
+
+        LOG_OUT("\n");
+
+        Lexer_destroy(&lexer); 
         free(input);
     }
 }

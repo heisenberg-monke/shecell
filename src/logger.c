@@ -26,6 +26,4 @@ void Logger_log(const char *level, const char *func, const char *fmt, ...)
     va_start(args, fmt);
     vfprintf(stderr, fmt, args);
     va_end(args);
-
-    fputc('\n', stderr);
 }
