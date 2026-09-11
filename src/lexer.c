@@ -326,6 +326,7 @@ void Lexer_tokenize(Lexer *this, const char *input)
     }
 
     VEC_PUSH(&this->tokens, createToken(this, TOKEN_EOF, this->pos));
+    LOG_INFO("Generated %zu tokens \n", this->tokens.size);
 }
 
 const char *TokenType_toStr(TokenType type)
