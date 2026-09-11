@@ -13,17 +13,17 @@ bool Logger_debugEnabled() {
     return g_debug;
 }
 
-void Logger_log(const char *level, const char *func, const char *fmt, ...)
+void Logger_log(FILE *file, const char *level, const char *func, const char *fmt, ...)
 {
     va_list args;
 
     if(level)
-        fprintf(stderr, "[%s] ", level);
+        fprintf(file, "[%s] ", level);
 
     if(func)
-        fprintf(stderr, "%s: ", func);
+        fprintf(file, "%s: ", func);
 
     va_start(args, fmt);
-    vfprintf(stderr, fmt, args);
+    vfprintf(file, fmt, args);
     va_end(args);
 }
